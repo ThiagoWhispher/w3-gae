@@ -1,0 +1,45 @@
+{% extends "base.html" %} {% block content %}
+
+<div id="curso" class="container-ext center-page">
+
+    <h2 class="padding-top-10">CURSO</h2>
+
+    <form action="/curso" enctype="multipart/form-data" method="post">
+        <div><label>Nome</label></div>
+        <div><input type="text" name="nome" /></div>
+        <div><label>Periodos</label></div>
+        <div><input type="number" name="periodos" min="1" /></div>
+        <div><label>Semestral</label></div>
+        <div class="padding-top-10">
+            <input type="radio" name="semestral" value="Sim" />Sim
+            <input type="radio" name="semestral" value="Nao" />Não
+        </div>
+
+        <div class="padding-top-10"><input type="submit" value="Adicionar"></div>
+    </form>
+
+    <h1>TABELA</h1>
+    <div class="w3-responsive">
+        <table class="w3-table-all">
+            <tr>
+                <th>Nome</th>
+                <th>Periodos</th>
+                <th>Semestral</th>
+                <th></th>
+            </tr>
+            {% for curso in cursos %}
+            <tr>
+                <td>{{curso.nome}}</td>
+                <td>{{curso.periodos}}</td>
+                <td>{{curso.semestral}}</td>
+                <td id="campo_editar_deletar">
+                    <a href="/updatecurso?key={{curso.key.urlsafe()}}"><i class="fa fa-pencil-square-o fa-3x" aria-hidden="true"></i></a>
+                    <a href="/delete?id={{curso.key.urlsafe()}};page=curso"><i class="fa fa-trash-o fa-3x" aria-hidden="true"></i></a>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
+
+{% endblock %}

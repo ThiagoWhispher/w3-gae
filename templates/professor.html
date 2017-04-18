@@ -1,0 +1,72 @@
+{% extends "base.html" %} {% block content %}
+
+<div id="professor" class="container-ext center-page">
+
+    <h2 class="padding-top-10">PROFESSOR</h2>
+
+    <form action="/professor" enctype="multipart/form-data" method="post">
+        <div><label>Nome</label></div>
+        <div><input type="text" name="nome" /></div>
+
+        <hr class="hr-line">
+
+        <div><label>Área</label></div>
+        <div><input type="text" name="area" /></div>
+
+        <hr class="hr-line">
+
+        <div><label>Perfil</label></div>
+        <div><input type="text" name="perfil" /></div>
+
+        <hr class="hr-line">
+
+        <div><label>Email</label></div>
+        <div><input type="text" name="email" /></div>
+
+        <hr class="hr-line">
+
+        <div><label>Foto</label></div>
+        <div>
+            <input type="file" name="img" required="true">
+        </div>
+        <div class="padding-top-10">
+            <input type="submit" value="Adicionar">
+        </div>
+    </form>
+
+    <hr class="hr-line">
+
+    <h2>TABELA</h2>
+    <div class="w3-responsive">
+        <table class="w3-table-all">
+            <thead>
+                <tr>
+                    <th>Foto</th>
+                    <th>Nome</th>
+                    <th>Área</th>
+                    <th>Perfil</th>
+                    <th>Email</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for professor in professores %}
+                <tr>
+                    <td><img class="img-circle" width="128px" height="128px" src="/img?img_id={{professor.key.urlsafe()}}"></img>
+                    </td>
+                    <td>{{professor.nome}}</td>
+                    <td>{{professor.area}}</td>
+                    <td>{{professor.perfil}}</td>
+                    <td>{{professor.email}}</td>
+                    <td id="campo_editar_deletar">
+                        <a href="/updateprofessor?key={{professor.key.urlsafe()}}"><i class="fa fa-pencil-square-o fa-5x" aria-hidden="true"></i></a>
+                        <a href="/delete?id={{professor.key.urlsafe()}};page=professor"><i class="fa fa-trash-o fa-5x" aria-hidden="true"></i></a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock %}
